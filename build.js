@@ -21,6 +21,12 @@ async function copyAssets() {
     await copyFile('src/icons/48.svg', 'dist/icons/48.svg')
     await copyFile('src/icons/128.svg', 'dist/icons/128.svg')
     
+    // Copy PNG icons
+    await copyFile('src/icons/16.png', 'dist/icons/16.png')
+    await copyFile('src/icons/32.png', 'dist/icons/32.png')
+    await copyFile('src/icons/48.png', 'dist/icons/48.png')
+    await copyFile('src/icons/128.png', 'dist/icons/128.png')
+    
     // Copy options HTML
     await copyFile('src/options/options.html', 'dist/options/options.html')
     

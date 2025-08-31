@@ -6,10 +6,10 @@
   "homepage_url": "https://github.com/json-formatter-pro-2026",
   "minimum_chrome_version": "120",
   "icons": {
-    "16": "icons/16.svg",
-    "32": "icons/32.svg",
-    "48": "icons/48.svg",
-    "128": "icons/128.svg"
+    "16": "icons/16.png",
+    "32": "icons/32.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
   },
   "content_scripts": [
     {
