@@ -1,7 +1,28 @@
 {
+  "name": "json-formatter-pro",
+  "version": "1.0.0",
+  "description": "Modern JSON Formatter - Beautiful, fast, and feature-rich JSON viewing experience with dark mode, search, and advanced formatting options.",
   "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && node build.js",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit"
+  },
   "devDependencies": {
-    "@types/chrome": "^0.0.203",
-    "esbuild": "^0.17.5"
-  }
+    "@types/chrome": "^0.0.260",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "vite": "^5.0.0"
+  },
+  "keywords": [
+    "json",
+    "formatter",
+    "chrome-extension",
+    "developer-tools",
+    "json-viewer"
+  ],
+  "author": "JSON Formatter Pro Team",
+  "license": "MIT"
 }

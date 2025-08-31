@@ -1,70 +1,438 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Options - JSON Formatter</title>
-    <style>
-      body {
-        margin: 18px;
-        font-family: system-ui, sans-serif;
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Formatter Pro - Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-50: #EEF2FF;
+      --primary-100: #E0E7FF;
+      --primary-200: #C7D2FE;
+      --primary-300: #A5B4FC;
+      --primary-400: #818CF8;
+      --primary-500: #6366F1;
+      --primary-600: #4F46E5;
+      --primary-700: #4338CA;
+      --primary-800: #3730A3;
+      --primary-900: #312E81;
+      
+      --gray-50: #F9FAFB;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-300: #D1D5DB;
+      --gray-400: #9CA3AF;
+      --gray-500: #6B7280;
+      --gray-600: #4B5563;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+      
+      --success-500: #10B981;
+      --warning-500: #F59E0B;
+      --error-500: #EF4444;
+      
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      
+      --radius-sm: 0.25rem;
+      --radius-md: 0.375rem;
+      --radius-lg: 0.5rem;
+      --radius-xl: 0.75rem;
+      --radius-2xl: 1rem;
+      
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      
+      --transition-fast: 150ms ease-in-out;
+      --transition-normal: 250ms ease-in-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background: linear-gradient(135deg, var(--primary-50) 0%, var(--gray-50) 100%);
+      min-height: 100vh;
+      color: var(--gray-900);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-8);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+    }
+
+    .logo {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto var(--space-6);
+      background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 24px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: var(--space-2);
+    }
+
+    .subtitle {
+      font-size: 1.125rem;
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
+    .card {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      margin-bottom: var(--space-6);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-200);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: var(--space-4);
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    .card-title svg {
+      width: 20px;
+      height: 20px;
+      color: var(--primary-500);
+    }
+
+    .setting-group {
+      margin-bottom: var(--space-6);
+    }
+
+    .setting-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .setting-label {
+      display: block;
+      font-weight: 500;
+      color: var(--gray-700);
+      margin-bottom: var(--space-2);
+    }
+
+    .setting-description {
+      font-size: 0.875rem;
+      color: var(--gray-500);
+      margin-bottom: var(--space-3);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      cursor: pointer;
+    }
+
+    .radio-option input[type="radio"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary-500);
+    }
+
+    .radio-option label {
+      font-weight: 500;
+      color: var(--gray-700);
+      cursor: pointer;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--gray-300);
+      transition: var(--transition-fast);
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: var(--transition-fast);
+      border-radius: 50%;
+      box-shadow: var(--shadow-sm);
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary-500);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    .button {
+      background: var(--primary-500);
+      color: white;
+      border: none;
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-lg);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      font-size: 0.875rem;
+    }
+
+    .button:hover {
+      background: var(--primary-600);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .button:active {
+      transform: translateY(0);
+    }
+
+    .button.secondary {
+      background: var(--gray-100);
+      color: var(--gray-700);
+      border: 1px solid var(--gray-300);
+    }
+
+    .button.secondary:hover {
+      background: var(--gray-200);
+      color: var(--gray-800);
+    }
+
+    .button-group {
+      display: flex;
+      gap: var(--space-3);
+      margin-top: var(--space-4);
+    }
+
+    .status {
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-lg);
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-top: var(--space-4);
+      display: none;
+    }
+
+    .status.success {
+      background: #D1FAE5;
+      color: #065F46;
+      border: 1px solid #A7F3D0;
+    }
+
+    .status.error {
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1px solid #FCA5A5;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: var(--space-12);
+      color: var(--gray-500);
+      font-size: 0.875rem;
+    }
+
+    .footer a {
+      color: var(--primary-600);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: var(--space-4);
       }
-
-      fieldset {
-        padding: 20px;
-        border-radius: 8px;
-        border: 1px solid currentColor;
+      
+      .title {
+        font-size: 2rem;
       }
-
-      legend {
-        font-weight: 600;
-        padding: 0 5px;
+      
+      .card {
+        padding: var(--space-6);
       }
-
-      label {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        height: 24px;
+      
+      .radio-group {
+        flex-direction: column;
+        gap: var(--space-3);
       }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">J</div>
+      <h1 class="title">JSON Formatter Pro</h1>
+      <p class="subtitle">Beautiful, fast, and feature-rich JSON viewing experience</p>
+    </div>
 
-      label > input {
-        position: relative;
-        top: -2px;
-      }
+    <div class="card">
+      <h2 class="card-title">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+        </svg>
+        Theme Settings
+      </h2>
+      
+      <div class="setting-group">
+        <label class="setting-label">Theme Mode</label>
+        <p class="setting-description">Choose how the extension should handle theming across all JSON pages.</p>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" id="theme-system" name="theme" value="system">
+            <label for="theme-system">System (Follow OS)</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="theme-light" name="theme" value="force_light">
+            <label for="theme-light">Light Mode</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="theme-dark" name="theme" value="force_dark">
+            <label for="theme-dark">Dark Mode</label>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      @media (prefers-color-scheme: dark) {
-        body {
-          background: #292a2d;
-          color: #e8eaed;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <fieldset>
-      <legend>Theme</legend>
-
-      <div>
-        <label>
-          <input type="radio" name="theme" value="system" />
-          Automatic (follow OS setting)
+    <div class="card">
+      <h2 class="card-title">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+        Advanced Settings
+      </h2>
+      
+      <div class="setting-group">
+        <label class="setting-label">Performance Mode</label>
+        <p class="setting-description">Enable performance optimizations for very large JSON files (may affect some animations).</p>
+        <label class="toggle-switch">
+          <input type="checkbox" id="performance-mode">
+          <span class="slider"></span>
         </label>
       </div>
-      <div>
-        <label>
-          <input type="radio" name="theme" value="force_dark" />
-          Force dark theme
-        </label>
-      </div>
-      <div>
-        <label>
-          <input type="radio" name="theme" value="force_light" />
-          Force light theme
-        </label>
-      </div>
-    </fieldset>
 
-    <script src="options.js"></script>
-  </body>
+      <div class="setting-group">
+        <label class="setting-label">Auto-expand Arrays</label>
+        <p class="setting-description">Automatically expand arrays with fewer than 10 items for better visibility.</p>
+        <label class="toggle-switch">
+          <input type="checkbox" id="auto-expand-arrays">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label">Show Line Numbers</label>
+        <p class="setting-description">Display line numbers in the raw JSON view for easier debugging.</p>
+        <label class="toggle-switch">
+          <input type="checkbox" id="show-line-numbers">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="card-title">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+        </svg>
+        About
+      </h2>
+      
+      <p style="margin-bottom: var(--space-4); color: var(--gray-600);">
+        JSON Formatter Pro is a modern, beautiful extension that makes JSON easy to read with advanced formatting, 
+        syntax highlighting, and a sleek user interface designed for 2026.
+      </p>
+      
+      <div class="button-group">
+        <button class="button" id="reset-settings">Reset to Defaults</button>
+        <button class="button secondary" id="export-settings">Export Settings</button>
+        <button class="button secondary" id="import-settings">Import Settings</button>
+      </div>
+    </div>
+
+    <div id="status" class="status"></div>
+
+    <div class="footer">
+      <p>
+        Made with ❤️ for developers worldwide<br>
+        <a href="https://github.com/json-formatter-pro" target="_blank">View on GitHub</a> • 
+        <a href="#" id="report-issue">Report an Issue</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
 </html>

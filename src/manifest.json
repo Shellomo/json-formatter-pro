@@ -1,13 +1,15 @@
 {
-  "name": "JSON Formatter",
-  "version": "0.7.2",
+  "name": "JSON Formatter Pro",
+  "version": "1.0.0",
   "manifest_version": 3,
-  "description": "Makes JSON easy to read. Open source.",
-  "homepage_url": "https://github.com/callumlocke/json-formatter",
+  "description": "Modern JSON Formatter - Beautiful, fast, and feature-rich JSON viewing experience with dark mode, search, and advanced formatting options.",
+  "homepage_url": "https://github.com/json-formatter-pro",
   "minimum_chrome_version": "88",
   "icons": {
-    "128": "icons/128.png",
-    "32": "icons/32.png"
+    "16": "icons/16.svg",
+    "32": "icons/32.svg",
+    "48": "icons/48.svg",
+    "128": "icons/128.svg"
   },
   "content_scripts": [
     {
@@ -20,6 +22,12 @@
   "host_permissions": ["*://*/*", "<all_urls>"],
   "options_ui": {
     "page": "options/options.html",
-    "open_in_tab": false
-  }
+    "open_in_tab": true
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
