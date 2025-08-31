@@ -1,0 +1,119 @@
+/* Modern JSON Formatter Pro - Syntax Highlighting */
+
+/* Syntax Highlighting */
+.b {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.s {
+  color: var(--success-500);
+  word-wrap: break-word;
+  font-weight: 500;
+}
+
+.k {
+  color: var(--gray-700);
+  font-weight: 500;
+}
+
+.bl,
+.nl,
+.n {
+  color: var(--primary-600);
+  font-weight: 600;
+}
+
+/* Enhanced 2026 syntax highlighting */
+.s[data-type="url"] {
+  color: var(--neo-blue);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color var(--transition-fast);
+}
+
+.s[data-type="url"]:hover {
+  text-decoration-color: var(--neo-blue);
+  cursor: pointer;
+}
+
+.s[data-type="email"] {
+  color: var(--neo-cyan);
+}
+
+.s[data-type="date"] {
+  color: var(--neo-purple);
+}
+
+.n[data-type="large"] {
+  background: linear-gradient(90deg, var(--primary-600), var(--neo-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Boolean values with neo styling */
+.bl[data-value="true"] {
+  color: var(--neo-cyan);
+}
+
+.bl[data-value="false"] {
+  color: var(--error-500);
+}
+
+/* Null values */
+.nl {
+  color: var(--gray-400);
+  font-style: italic;
+}
+
+/* String content indicators */
+.s::before {
+  content: '"';
+  color: var(--gray-400);
+}
+
+.s::after {
+  content: '"';
+  color: var(--gray-400);
+}
+
+/* Key highlighting with modern touch */
+.k::after {
+  content: ':';
+  color: var(--gray-400);
+  margin-left: 2px;
+}
+
+/* Links */
+a:link,
+a:visited {
+  text-decoration: none;
+  color: var(--primary-600);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+a:hover,
+a:active {
+  text-decoration: underline;
+  color: var(--primary-700);
+}
+
+/* Enhanced link styling for 2026 */
+a[href^="https://"]:hover {
+  color: var(--neo-blue);
+  text-shadow: 0 0 4px rgba(0, 212, 255, 0.3);
+}
+
+/* JSON type indicators */
+.type-indicator {
+  font-size: 10px;
+  color: var(--gray-400);
+  background: var(--gray-100);
+  padding: 1px 3px;
+  border-radius: var(--radius-sm);
+  margin-left: var(--space-1);
+  display: inline-block;
+  vertical-align: middle;
+}

@@ -1,31 +1,68 @@
 <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="grad128" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#EC4899;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#F97316;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06FFA5;stop-opacity:1" />
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.2"/>
+    <linearGradient id="accent128" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#06FFA5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00D4FF;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow128" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
     </filter>
+    <filter id="shadow128" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <radialGradient id="hologram" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#06FFA5;stop-opacity:0.8" />
+      <stop offset="70%" style="stop-color:#00D4FF;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:0.2" />
+    </radialGradient>
   </defs>
   
-  <rect width="128" height="128" rx="16" fill="url(#grad1)" filter="url(#shadow)"/>
+  <!-- Main container with premium 2026 styling -->
+  <rect width="128" height="128" rx="24" fill="url(#grad128)" filter="url(#shadow128)"/>
   
-  <!-- Main JSON structure -->
-  <path d="M32 32h64v16H32V32zm0 24h48v8H32V56zm0 16h64v8H32V72zm0 16h40v8H32V88z" fill="white"/>
+  <!-- Holographic backdrop -->
+  <circle cx="64" cy="64" r="50" fill="url(#hologram)" opacity="0.3"/>
   
-  <!-- Border -->
-  <path d="M24 24h80v80H24V24zm8 8v64h64V32H32z" fill="white" fill-opacity="0.3"/>
+  <!-- Advanced JSON structure with premium glow -->
+  <path d="M20 20h88v16H20V20zm0 24h66v10H20V44zm0 18h88v10H20V62zm0 18h52v10H20v-10z" 
+        fill="white" fill-opacity="0.98" filter="url(#glow128)"/>
   
-  <!-- Pro badge -->
-  <circle cx="96" cy="32" r="8" fill="#F59E0B"/>
-  <text x="96" y="36" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">P</text>
+  <!-- Ultra-modern accent elements -->
+  <rect x="16" y="108" width="96" height="6" rx="3" fill="url(#accent128)"/>
   
-  <!-- JSON content preview -->
-  <path d="M40 40h16v3h-16v-3zm0 6h12v2h-12v-2zm0 4h16v2h-16v-2zm0 4h8v2h-8v-2z" fill="#6366F1" fill-opacity="0.2"/>
+  <!-- Holographic corner accents -->
+  <path d="M8 24 L24 8 L18 8 L8 18 Z" fill="#06FFA5" fill-opacity="0.8"/>
+  <path d="M120 104 L104 120 L110 120 L120 110 Z" fill="#00D4FF" fill-opacity="0.8"/>
   
-  <!-- Decorative elements -->
-  <circle cx="40" cy="100" r="3" fill="white" fill-opacity="0.3"/>
-  <circle cx="88" cy="100" r="3" fill="white" fill-opacity="0.3"/>
-  <circle cx="64" cy="108" r="2" fill="white" fill-opacity="0.2"/>
+  <!-- Advanced data flow indicators -->
+  <circle cx="30" cy="88" r="3" fill="#06FFA5" fill-opacity="0.9" filter="url(#glow128)"/>
+  <circle cx="44" cy="88" r="2" fill="#00D4FF" fill-opacity="0.7"/>
+  <circle cx="58" cy="88" r="3" fill="#06FFA5" fill-opacity="0.9" filter="url(#glow128)"/>
+  <circle cx="72" cy="88" r="2" fill="#00D4FF" fill-opacity="0.7"/>
+  <circle cx="86" cy="88" r="3" fill="#06FFA5" fill-opacity="0.9" filter="url(#glow128)"/>
+  
+  <!-- Premium Neo 2026 badge -->
+  <circle cx="100" cy="28" r="12" fill="#06FFA5" filter="url(#glow128)"/>
+  <circle cx="100" cy="28" r="8" fill="#00D4FF"/>
+  <text x="100" y="32" text-anchor="middle" fill="white" font-family="Arial, sans-serif" 
+        font-size="14" font-weight="bold">26</text>
+        
+  <!-- JSON data visualization -->
+  <path d="M36 36h20v4h-20v-4zm0 8h15v2.5h-15v-2.5zm0 5h20v2.5h-20v-2.5zm0 5h10v2.5h-10v-2.5z" 
+        fill="#6366F1" fill-opacity="0.3"/>
+        
+  <!-- Modern connection lines -->
+  <path d="M28 52 Q34 52 34 58 Q34 64 40 64" stroke="#06FFA5" stroke-width="2" fill="none" opacity="0.6"/>
+  <path d="M28 70 Q34 70 34 76 Q34 82 40 82" stroke="#00D4FF" stroke-width="2" fill="none" opacity="0.6"/>
 </svg>

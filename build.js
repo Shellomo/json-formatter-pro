@@ -10,6 +10,7 @@ async function copyAssets() {
     await mkdir('dist', { recursive: true })
     await mkdir('dist/icons', { recursive: true })
     await mkdir('dist/options', { recursive: true })
+    await mkdir('dist/styles', { recursive: true })
 
     // Copy manifest
     await copyFile('src/manifest.json', 'dist/manifest.json')
@@ -22,6 +23,14 @@ async function copyAssets() {
     
     // Copy options HTML
     await copyFile('src/options/options.html', 'dist/options/options.html')
+    
+    // Copy styles
+    await copyFile('src/styles/variables.css', 'dist/styles/variables.css')
+    await copyFile('src/styles/base.css', 'dist/styles/base.css')
+    await copyFile('src/styles/breadcrumb.css', 'dist/styles/breadcrumb.css')
+    await copyFile('src/styles/json-structure.css', 'dist/styles/json-structure.css')
+    await copyFile('src/styles/syntax-highlighting.css', 'dist/styles/syntax-highlighting.css')
+    await copyFile('src/styles/dark-theme.css', 'dist/styles/dark-theme.css')
     
     console.log('✅ Assets copied successfully!')
   } catch (error) {

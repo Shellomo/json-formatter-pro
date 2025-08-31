@@ -1,0 +1,144 @@
+/* Modern JSON Formatter Pro - JSON Structure Styles */
+
+/* JSON Structure */
+.entry {
+  display: block;
+  padding-left: var(--space-5);
+  margin-left: calc(-1 * var(--space-5));
+  position: relative;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.entry:hover {
+  background: rgba(99, 102, 241, 0.05);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.1);
+}
+
+/* Collapsible Elements */
+.collapsed {
+  white-space: nowrap;
+}
+
+.collapsed > .blockInner {
+  display: none;
+}
+
+.collapsed > .ell::after {
+  content: '…';
+  font-weight: 600;
+  color: var(--gray-500);
+  margin: 0 var(--space-2);
+}
+
+.collapsed .entry {
+  display: inline;
+}
+
+.collapsed::after {
+  content: attr(data-size);
+  color: var(--gray-400);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Expand/Collapse Icons */
+.e {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 2px;
+  color: var(--gray-500);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  background: transparent;
+}
+
+.e::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 4px 0 4px 6px;
+  border-color: transparent transparent transparent currentColor;
+  transform: rotate(90deg);
+  transition: transform var(--transition-fast);
+}
+
+.collapsed > .e::after {
+  transform: rotate(0deg);
+}
+
+.e:hover {
+  color: var(--primary-600);
+  background: var(--primary-50);
+}
+
+.e:active {
+  color: var(--primary-700);
+  background: var(--primary-100);
+}
+
+.collapsed .entry .e {
+  display: none;
+}
+
+/* Block Structure */
+.blockInner {
+  display: block;
+  padding-left: var(--space-6);
+  border-left: 2px solid var(--gray-200);
+  margin-left: var(--space-1);
+  transition: border-color var(--transition-fast);
+}
+
+.entry:hover > .blockInner {
+  border-color: var(--primary-200);
+}
+
+/* Enhanced 2026 features */
+.entry[data-depth="0"] {
+  border-left: 3px solid var(--neo-cyan);
+  border-radius: var(--radius-sm);
+  padding-left: calc(var(--space-5) + var(--space-2));
+}
+
+.entry[data-type="object"]:hover {
+  background: rgba(99, 102, 241, 0.08);
+  border-left: 2px solid var(--primary-400);
+}
+
+.entry[data-type="array"]:hover {
+  background: rgba(245, 158, 11, 0.08);
+  border-left: 2px solid var(--warning-500);
+}
+
+/* Neo glow effect for interactive elements */
+.e:focus {
+  outline: 2px solid var(--neo-blue);
+  outline-offset: 2px;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+/* Modern connection indicators */
+.blockInner::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--neo-cyan), var(--neo-blue));
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.entry:hover > .blockInner::before {
+  opacity: 0.3;
+}

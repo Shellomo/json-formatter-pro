@@ -120,7 +120,7 @@ class JSONFormatterPro {
   private async addStyles(): Promise<void> {
     const styleElement = document.createElement('style')
     styleElement.id = 'jfStyleEl'
-    styleElement.textContent = this.themeManager.getCSS()
+    styleElement.textContent = await this.themeManager.getCSS()
     document.head.appendChild(styleElement)
   }
 }

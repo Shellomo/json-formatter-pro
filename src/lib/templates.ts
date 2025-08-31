@@ -19,9 +19,12 @@ const getSpanWithBoth = (innerText: string, className: string) => {
 export const templates = {
   t_entry: getSpanWithClass('entry'),
   t_exp: getSpanWithClass('e'),
+  t_expander: getSpanWithClass('e'), // Alias for backwards compatibility
   t_key: getSpanWithClass('k'),
   t_string: getSpanWithClass('s'),
   t_number: getSpanWithClass('n'),
+  t_primitive: getSpanWithClass('primitive'),
+  t_bracket: getSpanWithClass('b'),
 
   t_null: getSpanWithBoth('null', 'nl'),
   t_true: getSpanWithBoth('true', 'bl'),

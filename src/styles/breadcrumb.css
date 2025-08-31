@@ -1,0 +1,108 @@
+/* Modern JSON Formatter Pro - Breadcrumb System */
+
+/* Breadcrumb System */
+#breadcrumbBar {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow-lg);
+  transition: all var(--transition-normal);
+  margin: var(--space-4);
+  margin-top: 0;
+  overflow: hidden;
+  pointer-events: auto;
+  flex-shrink: 0;
+}
+
+#breadcrumbBar:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-1px);
+}
+
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-family-mono);
+  font-size: 13px;
+  color: var(--gray-700);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.breadcrumb-item:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-300);
+  color: var(--gray-900);
+}
+
+.breadcrumb-item.active {
+  background: var(--primary-50);
+  border-color: var(--primary-200);
+  color: var(--primary-700);
+  font-weight: 500;
+}
+
+.breadcrumb-separator {
+  color: var(--gray-400);
+  font-weight: 300;
+  user-select: none;
+}
+
+.breadcrumb-key {
+  font-weight: 500;
+  color: var(--primary-600);
+}
+
+.breadcrumb-index {
+  color: var(--warning-500);
+  font-weight: 500;
+}
+
+.breadcrumb-type {
+  font-size: 11px;
+  color: var(--gray-500);
+  background: var(--gray-100);
+  padding: 1px 4px;
+  border-radius: var(--radius-sm);
+  margin-left: var(--space-1);
+}
+
+/* Enhanced 2026 features */
+.breadcrumb-neo-indicator {
+  width: 4px;
+  height: 4px;
+  background: var(--neo-cyan);
+  border-radius: 50%;
+  margin-left: var(--space-1);
+  opacity: 0.7;
+}
+
+.breadcrumb-item:hover .breadcrumb-neo-indicator {
+  background: var(--neo-blue);
+  opacity: 1;
+  box-shadow: 0 0 4px var(--neo-blue);
+}
+
+/* Responsive breadcrumb */
+@media (max-width: 768px) {
+  #breadcrumbBar {
+    margin: var(--space-2);
+    margin-top: 0;
+  }
+}

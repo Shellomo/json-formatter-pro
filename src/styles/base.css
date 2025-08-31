@@ -1,0 +1,130 @@
+/* Modern JSON Formatter Pro - Base Styles */
+
+/* Base Styles */
+body {
+  background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+  color: var(--gray-900);
+  font-family: var(--font-family);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  user-select: text;
+  overflow-y: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Main Container */
+#jsonFormatterMain {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* JSON Container */
+#jsonFormatterParsed {
+  padding: var(--space-8) var(--space-6);
+  line-height: 1.7;
+  font-family: var(--font-family-mono);
+  font-size: 13px;
+  color: var(--gray-800);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  margin: var(--space-4);
+  margin-bottom: var(--space-2);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  animation: fadeIn var(--transition-slow) ease-out;
+}
+
+#jsonFormatterRaw {
+  padding: var(--space-10) var(--space-4) var(--space-4);
+  font-family: var(--font-family-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  background: rgba(248, 250, 252, 0.9);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-lg);
+  margin: var(--space-4);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Utility Classes */
+[hidden] {
+  display: none !important;
+}
+
+span {
+  white-space: pre-wrap;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading State */
+#spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Copy notification */
+.copy-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(16, 185, 129, 0.95);
+  color: white;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 10000;
+  backdrop-filter: blur(8px);
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #jsonFormatterParsed {
+    margin: var(--space-2);
+    padding: var(--space-4);
+    margin-bottom: var(--space-1);\n  }\n  \n  .copy-notification {\n    top: 10px;\n    right: 10px;\n    left: 10px;\n    text-align: center;\n  }
+  }
+}

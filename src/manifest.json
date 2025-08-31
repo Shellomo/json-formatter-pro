@@ -1,10 +1,10 @@
 {
-  "name": "JSON Formatter Pro",
-  "version": "1.0.0",
+  "name": "JSON Formatter Pro 2026",
+  "version": "2.0.0",
   "manifest_version": 3,
-  "description": "Modern JSON Formatter - Beautiful, fast, and feature-rich JSON viewing experience with dark mode, search, and advanced formatting options.",
-  "homepage_url": "https://github.com/json-formatter-pro",
-  "minimum_chrome_version": "88",
+  "description": "Next-generation JSON Formatter for 2026 - Ultra-modern, blazingly fast JSON viewer with AI-powered insights, holographic themes, neural navigation, and futuristic interaction patterns. Experience the future of data visualization.",
+  "homepage_url": "https://github.com/json-formatter-pro-2026",
+  "minimum_chrome_version": "120",
   "icons": {
     "16": "icons/16.svg",
     "32": "icons/32.svg",
@@ -18,7 +18,7 @@
       "run_at": "document_end"
     }
   ],
-  "permissions": ["storage"],
+  "permissions": ["storage", "clipboardWrite", "activeTab"],
   "host_permissions": ["*://*/*", "<all_urls>"],
   "options_ui": {
     "page": "options/options.html",
@@ -26,7 +26,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["icons/*"],
+      "resources": ["icons/*", "styles/*"],
       "matches": ["<all_urls>"]
     }
   ]

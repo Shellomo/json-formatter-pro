@@ -9,7 +9,28 @@ export class UIManager {
   }
 
   createToolbar(): void {
-    // Toolbar removed - no longer needed
+    // Create simple toggle button
+    const toggleButton = document.createElement('button')
+    toggleButton.id = 'jsonFormatterToggle'
+    toggleButton.textContent = 'Raw'
+    toggleButton.title = 'Toggle between formatted and raw JSON view'
+    toggleButton.style.cssText = `
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 9999;
+      padding: 6px 12px;
+      background: #007acc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: monospace;
+    `
+    
+    toggleButton.addEventListener('click', this.toggleView.bind(this))
+    document.body.appendChild(toggleButton)
   }
 
 
@@ -34,6 +55,33 @@ export class UIManager {
 
     document.body.appendChild(mainContainer)
     document.body.appendChild(this.rawContainer)
+  }
+
+  private toggleView(): void {
+    const mainContainer = document.getElementById('jsonFormatterMain')
+    const rawContainer = document.getElementById('jsonFormatterRaw')
+    const toggleButton = document.getElementById('jsonFormatterToggle') as HTMLButtonElement
+    
+    if (!mainContainer || !rawContainer || !toggleButton) return
+
+    const isShowingFormatted = !mainContainer.hidden
+    
+    if (isShowingFormatted) {
+      // Switch to raw view
+      mainContainer.hidden = true
+      rawContainer.hidden = false
+      toggleButton.textContent = 'Formatted'
+      toggleButton.title = 'Switch to formatted JSON view'
+      
+      // Hide breadcrumb when showing raw
+      this.breadcrumbManager.hideBreadcrumb()
+    } else {
+      // Switch to formatted view
+      mainContainer.hidden = false
+      rawContainer.hidden = true
+      toggleButton.textContent = 'Raw'
+      toggleButton.title = 'Switch to raw JSON view'
+    }
   }
 
   addEventListeners(): void {

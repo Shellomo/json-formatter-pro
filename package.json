@@ -1,28 +1,47 @@
 {
-  "name": "json-formatter-pro",
-  "version": "1.0.0",
-  "description": "Modern JSON Formatter - Beautiful, fast, and feature-rich JSON viewing experience with dark mode, search, and advanced formatting options.",
+  "name": "json-formatter-pro-2026",
+  "version": "2.0.0",
+  "description": "Next-generation JSON Formatter for 2026 - Ultra-modern, blazingly fast JSON viewer with AI-powered insights, holographic themes, neural navigation, and futuristic interaction patterns.",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && node build.js",
+    "build:dev": "tsc && vite build --mode development && node build.js",
+    "build:prod": "tsc && vite build --mode production && node build.js",
+    "lint": "eslint src --ext .ts,.js --fix",
+    "format": "prettier --write src/**/*.{ts,js,css,json}",
+    "analyze": "vite-bundle-analyzer dist",
     "preview": "vite preview",
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.260",
-    "@types/node": "^20.10.0",
-    "typescript": "^5.3.0",
-    "vite": "^5.0.0"
+    "@types/chrome": "^0.0.268",
+    "@types/node": "^20.14.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.0",
+    "vite": "^5.2.0",
+    "vite-bundle-analyzer": "^0.7.0"
   },
   "keywords": [
     "json",
     "formatter",
     "chrome-extension",
     "developer-tools",
-    "json-viewer"
+    "json-viewer",
+    "2026",
+    "futuristic",
+    "ai-powered",
+    "holographic",
+    "neural-navigation",
+    "next-generation",
+    "typescript",
+    "modern-ui"
   ],
-  "author": "JSON Formatter Pro Team",
+  "author": "JSON Formatter Pro 2026 Team",
   "license": "MIT"
 }

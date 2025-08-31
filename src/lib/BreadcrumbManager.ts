@@ -1,14 +1,23 @@
-// Breadcrumb management system
+// Enhanced Breadcrumb management system for 2026
 export class BreadcrumbManager {
   private breadcrumbBar: HTMLDivElement | null = null
   private breadcrumbContainer: HTMLDivElement | null = null
-  private currentPath: Array<{ key: string; index?: number; type: string }> = []
+  private currentPath: Array<{ key: string; index?: number; type: string; element?: HTMLElement }> = []
+  private history: Array<{ key: string; index?: number; type: string }[]> = []
+  private historyIndex: number = -1
+  private maxHistorySize: number = 50
 
   constructor() {
     this.setupBreadcrumb()
   }
 
   private setupBreadcrumb(): void {
+    // Check if breadcrumb already exists and remove it to avoid duplicates
+    const existingBreadcrumb = document.getElementById('breadcrumbBar')
+    if (existingBreadcrumb) {
+      existingBreadcrumb.remove()
+    }
+
     // Create breadcrumb bar
     this.breadcrumbBar = document.createElement('div')
     this.breadcrumbBar.id = 'breadcrumbBar'
@@ -31,31 +40,56 @@ export class BreadcrumbManager {
   }
 
   updateBreadcrumb(element: HTMLElement): void {
-    this.currentPath = this.buildPath(element)
-    this.renderBreadcrumb()
+    const newPath = this.buildPath(element)
+    
+    // Only update if path has actually changed
+    if (!this.pathsEqual(this.currentPath, newPath)) {
+      // Add current path to history
+      if (this.currentPath.length > 0) {
+        this.addToHistory(this.currentPath)
+      }
+      
+      this.currentPath = newPath
+      this.renderBreadcrumb()
+      
+      // Emit path change event
+      this.emitPathChangeEvent()
+    }
   }
 
-  private buildPath(element: HTMLElement): Array<{ key: string; index?: number; type: string }> {
-    const path: Array<{ key: string; index?: number; type: string }> = []
+  private buildPath(element: HTMLElement): Array<{ key: string; index?: number; type: string; element?: HTMLElement }> {
+    const path: Array<{ key: string; index?: number; type: string; element?: HTMLElement }> = []
     let current = element
 
     while (current && current.classList.contains('entry')) {
-      const keyElement = current.querySelector('.k')
-      const parent = current.parentElement
+      const isArrayItem = current.hasAttribute('data-array-index')
       
-      if (keyElement) {
-        const key = keyElement.textContent || ''
-        const type = this.getElementType(current)
-        const index = this.getElementIndex(current)
-        
+      if (isArrayItem) {
+        // For array items, get the index from data-index attribute
+        const index = parseInt(current.getAttribute('data-index') || '0', 10)
         path.unshift({
-          key,
+          key: `[${index}]`, // Display as [index]
           index,
-          type
+          type: 'array-item',
+          element: current
         })
+      } else {
+        // For object properties, get the key from the key element
+        const keyElement = current.querySelector('.k')
+        if (keyElement) {
+          const keyText = keyElement.textContent?.replace(/["|']/g, '') || ''
+          const type = this.getElementType(current)
+          path.unshift({
+            key: keyText,
+            type,
+            element: current
+          })
+        }
       }
       
-      current = parent?.closest('.entry') as HTMLElement
+      // Move up to parent entry
+      const parent = current.parentElement?.closest('.entry') as HTMLElement
+      current = parent
     }
 
     return path
@@ -80,17 +114,6 @@ export class BreadcrumbManager {
     return 'root'
   }
 
-  private getElementIndex(element: HTMLElement): number | undefined {
-    const parent = element.parentElement
-    if (!parent) return undefined
-    
-    const siblings = Array.from(parent.children).filter(child => 
-      child.classList.contains('entry')
-    )
-    
-    const index = siblings.indexOf(element)
-    return index >= 0 ? index : undefined
-  }
 
   private renderBreadcrumb(): void {
     if (!this.breadcrumbContainer || !this.breadcrumbBar) return
@@ -104,65 +127,22 @@ export class BreadcrumbManager {
 
     this.breadcrumbBar.style.display = 'block'
 
-    // Add root indicator
-    const rootItem = document.createElement('div')
-    rootItem.className = 'breadcrumb-item'
-    rootItem.textContent = 'root'
-    rootItem.addEventListener('click', () => this.navigateToRoot())
-    this.breadcrumbContainer.appendChild(rootItem)
-
-    // Add path items
+    // Add path items in clean format: key → another_key → [0] → key → [5]
     this.currentPath.forEach((item, index) => {
-      // Add separator
-      const separator = document.createElement('span')
-      separator.className = 'breadcrumb-separator'
-      separator.textContent = ' › '
-      this.breadcrumbContainer!.appendChild(separator)
+      // Add separator before each item except the first
+      if (index > 0) {
+        const separator = document.createElement('span')
+        separator.className = 'breadcrumb-separator'
+        separator.textContent = ' → '
+        this.breadcrumbContainer!.appendChild(separator)
+      }
 
       // Add breadcrumb item
-      const breadcrumbItem = document.createElement('div')
-      breadcrumbItem.className = 'breadcrumb-item'
-      if (index === this.currentPath.length - 1) {
-        breadcrumbItem.classList.add('active')
-      }
-
-      // Create key span
-      const keySpan = document.createElement('span')
-      keySpan.className = 'breadcrumb-key'
-      keySpan.textContent = item.key
-      breadcrumbItem.appendChild(keySpan)
-
-      // Add index if it's an array item
-      if (item.index !== undefined) {
-        const indexSpan = document.createElement('span')
-        indexSpan.className = 'breadcrumb-index'
-        indexSpan.textContent = `[${item.index}]`
-        breadcrumbItem.appendChild(indexSpan)
-      }
-
-      // Add type indicator
-      const typeSpan = document.createElement('span')
-      typeSpan.className = 'breadcrumb-type'
-      typeSpan.textContent = item.type === 'array' ? 'arr' : 'obj'
-      breadcrumbItem.appendChild(typeSpan)
-
-      // Add click handler
-      breadcrumbItem.addEventListener('click', () => {
-        this.navigateToPath(index)
-      })
-
+      const breadcrumbItem = this.createSimpleBreadcrumbItem(item, index)
       this.breadcrumbContainer!.appendChild(breadcrumbItem)
     })
   }
 
-  private navigateToRoot(): void {
-    // Find the root element and scroll to it
-    const rootElement = document.querySelector('#jsonFormatterParsed > .entry')
-    if (rootElement) {
-      rootElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      this.updateBreadcrumb(rootElement as HTMLElement)
-    }
-  }
 
   private navigateToPath(pathIndex: number): void {
     // Find the element at the specified path level
@@ -181,28 +161,32 @@ export class BreadcrumbManager {
     for (const pathItem of path) {
       if (!currentElement) break
       
-      const entries = Array.from(currentElement.querySelectorAll('.entry'))
+      const blockInner = currentElement.querySelector('.blockInner')
+      if (!blockInner) break
+      
+      const entries = Array.from(blockInner.children).filter(child => 
+        child.classList.contains('entry')
+      ) as HTMLElement[]
+      
       const matchingEntry = entries.find(entry => {
-        const keyElement = entry.querySelector('.k')
-        const key = keyElement?.textContent || ''
+        const isArrayItem = entry.hasAttribute('data-array-index')
         
-        if (pathItem.index !== undefined) {
-          // For array items, check both key and index
-          const parent = entry.parentElement
-          if (parent) {
-            const siblings = Array.from(parent.children).filter(child => 
-              child.classList.contains('entry')
-            )
-            const index = siblings.indexOf(entry)
-            return key === pathItem.key && index === pathItem.index
-          }
+        if (pathItem.type === 'array-item' && isArrayItem) {
+          // For array items, compare using the data-index attribute
+          const entryIndex = parseInt(entry.getAttribute('data-index') || '0', 10)
+          return pathItem.index === entryIndex
+        } else if (!isArrayItem) {
+          // For object properties, compare keys directly
+          const keyElement = entry.querySelector('.k')
+          const keyText = keyElement?.textContent?.replace(/["|']/g, '') || ''
+          return keyText === pathItem.key
         }
         
-        return key === pathItem.key
+        return false
       })
       
       if (matchingEntry) {
-        currentElement = matchingEntry as HTMLElement
+        currentElement = matchingEntry
       } else {
         return null
       }
@@ -216,4 +200,61 @@ export class BreadcrumbManager {
       this.breadcrumbBar.style.display = 'none'
     }
   }
+
+  // Enhanced 2026 features
+  private pathsEqual(path1: any[], path2: any[]): boolean {
+    if (path1.length !== path2.length) return false
+    return path1.every((item, index) => {
+      const other = path2[index]
+      return item.key === other.key && item.index === other.index && item.type === other.type
+    })
+  }
+
+  private addToHistory(path: any[]): void {
+    // Remove future history if we're not at the end
+    if (this.historyIndex < this.history.length - 1) {
+      this.history = this.history.slice(0, this.historyIndex + 1)
+    }
+
+    this.history.push([...path])
+    this.historyIndex = this.history.length - 1
+
+    // Limit history size
+    if (this.history.length > this.maxHistorySize) {
+      this.history.shift()
+      this.historyIndex--
+    }
+  }
+
+  private emitPathChangeEvent(): void {
+    const event = new CustomEvent('breadcrumb-path-change', {
+      detail: {
+        path: this.currentPath,
+        pathString: this.getPathString()
+      },
+      bubbles: true
+    })
+    document.dispatchEvent(event)
+  }
+
+  private createSimpleBreadcrumbItem(item: any, index: number): HTMLSpanElement {
+    const breadcrumbItem = document.createElement('span')
+    breadcrumbItem.className = 'breadcrumb-item'
+    breadcrumbItem.textContent = item.key
+    
+    // Make it clickable to navigate to that path level
+    breadcrumbItem.style.cursor = 'pointer'
+    breadcrumbItem.addEventListener('click', () => {
+      this.navigateToPath(index)
+    })
+
+    return breadcrumbItem
+  }
+
+  private getPathString(): string {
+    return this.currentPath
+      .map(item => item.key)
+      .join(' → ')
+  }
+
 }
